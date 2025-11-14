@@ -1,0 +1,712 @@
+/* --- 1. CONFIGURACIÓN GLOBAL Y FUENTES --- */
+        
+:root {
+    /* Paleta de Colores */
+    --color-principal: #FF802C; /* Naranja Eléctrico */
+    --color-rojo: #FF5156;
+    --color-fucsia: #FF338D;
+    --color-lima: #BAF83C;
+    --color-amarillo: #FADE0A;
+    --color-negro: #000000;
+    --color-negro-fondo: #0A0A0A;
+    --color-blanco: #FFFFFF;
+    
+    /* Fuentes (Respaldo) */
+    --font-titulo: 'Montserrat', sans-serif;
+    --font-texto: 'Montserrat', sans-serif;
+
+    /* * SI TIENES LAS FUENTES ERAS ITC, DESCOMENTA ESTAS LÍNEAS 
+     * Y COMENTA LAS DE ARRIBA.
+    */
+    /*
+    --font-titulo: 'Eras Bold ITC', 'Montserrat', sans-serif;
+    --font-texto: 'Eras Medium ITC', 'Montserrat', sans-serif;
+    */
+}
+
+/* ... (Carga de @font-face si tuvieras los archivos) ... */
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--color-negro-fondo);
+    color: var(--color-blanco);
+    font-family: var(--font-texto);
+    overflow-x: hidden;
+}
+
+/* --- 2. CONTENEDOR DE LÁMINAS (SCROLL FLUIDO) --- */
+.manual-container {
+    height: 100%;
+}
+
+.lamina {
+    min-height: 100vh;
+    height: auto;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10vh 8vw;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 2px solid #1A1A1A; /* Borde gris oscuro */
+}
+
+/* --- 3. ESTILOS DE TEXTO COMUNES --- */
+.lamina h3 {
+    font-family: var(--font-titulo);
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    letter-spacing: 1px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease 0.2s, transform 0.5s ease 0.2s;
+}
+
+.lamina h1 {
+    font-family: var(--font-titulo);
+    font-size: clamp(2.5rem, 6vw, 6rem);
+    font-weight: 900; /* Extra-bold */
+    text-transform: uppercase;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease 0.4s, transform 0.5s ease 0.4s;
+}
+
+.lamina p {
+    font-family: var(--font-texto);
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    line-height: 1.7;
+    max-width: 650px;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease 0.6s, transform 0.5s ease 0.6s;
+}
+
+/* --- 4. ANIMACIÓN DE ENTRADA (con JS) --- */
+.lamina.visible h3,
+.lamina.visible h1,
+.lamina.visible p,
+.lamina.visible .contenido-animado {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.contenido-animado {
+     opacity: 0;
+     transform: translateY(20px);
+     transition: opacity 0.5s ease 0.8s, transform 0.5s ease 0.8s;
+}
+
+/* --- 5. ESTILOS POR LÁMINA --- */
+
+/* == LÁMINA 1: PORTADA (AJUSTADA) == */
+#portada {
+    background-color: var(--color-principal); /* Naranja */
+    text-align: center;
+}
+#portada .logo-portada {
+    width: clamp(250px, 40vw, 400px); 
+    max-width: 90%;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.6s ease 0.2s, transform 0.6s ease 0.2s;
+}
+#portada.visible .logo-portada {
+    opacity: 1;
+    transform: scale(1);
+}
+#portada h1 {
+    color: var(--color-negro);
+}
+#portada h2 {
+    font-family: var(--font-titulo);
+    font-size: clamp(1.5rem, 3.5vw, 3rem);
+    color: var(--color-negro);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease 0.6s, transform 0.5s ease 0.6s;
+}
+#portada.visible h2 {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* == LÁMINA 2: INTRO (REDISÑADA) == */
+#intro {
+    background-color: var(--color-rojo); /* Fondo Rojo */
+    align-items: center;
+}
+#intro h3, #intro h1, #intro p {
+    color: var(--color-negro); /* Texto Negro */
+    text-align: center;
+}
+#intro h1 {
+    margin-bottom: 1rem;
+}
+.intro-bio {
+    max-width: 800px;
+    opacity: 0.8;
+}
+.intro-artistico {
+    background: rgba(0,0,0,0.1);
+    border-radius: 15px;
+    padding: 2rem;
+    margin-top: 3rem;
+    width: 100%;
+    max-width: 1000px;
+}
+.intro-artistico h4 {
+    font-family: var(--font-titulo);
+    font-size: 1.5rem;
+    color: var(--color-negro);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.timeline {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+}
+.timeline-step {
+    flex: 1;
+    text-align: center;
+}
+.timeline-icon {
+    font-size: 2.5rem;
+    color: var(--color-negro);
+    margin-bottom: 1rem;
+}
+.timeline-step p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-negro);
+    opacity: 0.9;
+    max-width: 100%;
+}
+@media (max-width: 768px) {
+    .timeline {
+        flex-direction: column;
+    }
+}
+
+
+/* == LÁMINA 3: COMPOSICIÓN (REDISÑADA) == */
+#composicion {
+    background-color: var(--color-blanco); /* Fondo Blanco */
+    color: var(--color-negro);
+}
+#composicion h3 {
+    color: var(--color-principal); /* Naranja */
+}
+#composicion h1, #composicion p {
+    color: var(--color-negro);
+}
+.descripcion-composicion {
+    max-width: 800px;
+    color: #333;
+}
+.composicion-container {
+    width: 100%;
+    max-width: 800px; /* Tamaño de imagen aumentado */
+    margin-top: 2rem;
+}
+.composicion-imagen {
+    width: 100%;
+    height: auto;
+}
+/* Nuevo grid para explicaciones */
+.explicacion-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 3rem;
+}
+.explicacion {
+    background-color: #f4f4f4;
+    padding: 1.5rem;
+    border-radius: 10px;
+}
+.explicacion h4 {
+    font-family: var(--font-titulo);
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+.explicacion h4 .fa-solid {
+    color: var(--color-principal);
+    margin-right: 0.5rem;
+}
+.explicacion p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #333;
+    text-align: left;
+    max-width: 100%;
+}
+@media (max-width: 900px) {
+    .explicacion-grid {
+        grid-template-columns: 1fr 1fr; /* 2x2 en tablet */
+    }
+}
+@media (max-width: 600px) {
+    .explicacion-grid {
+        grid-template-columns: 1fr; /* 1x4 en móvil */
+    }
+}
+
+
+/* == LÁMINA 4: LOGOS == */
+#logos {
+    background-color: var(--color-negro-fondo); /* Fondo Negro */
+}
+#logos h3 {
+    color: var(--color-principal); /* Naranja */
+}
+.descripcion-logos {
+    text-align: center;
+    max-width: none;
+    color: #aaa;
+}
+.galeria-logos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    width: 100%;
+    margin-top: 2rem;
+}
+.galeria-logos figure {
+    text-align: center;
+    flex-basis: 200px;
+    transition: transform 0.3s ease;
+}
+.galeria-logos figure:hover {
+    transform: scale(1.05);
+}
+.galeria-logos img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+.logo-ampliable {
+    cursor: zoom-in;
+}
+.galeria-logos figcaption {
+    margin-top: 0.8rem;
+    font-family: var(--font-texto);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    color: #aaa;
+}
+
+/* == LÁMINA 5: USOS INCORRECTOS == */
+#usos-incorrectos {
+    background-color: var(--color-rojo); /* Fondo Rojo */
+}
+#usos-incorrectos h3, #usos-incorrectos h1, #usos-incorrectos p {
+    color: var(--color-negro); /* Texto Negro */
+}
+.galeria-usos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 2rem;
+    width: 100%;
+    margin-top: 2rem;
+}
+.uso-item {
+    background-color: #000;
+    border-radius: 10px;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    border: 2px solid #333;
+    position: relative;
+    overflow: hidden;
+}
+.uso-item::before, .uso-item::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120%;
+    height: 5px;
+    background-color: var(--color-rojo);
+    transform-origin: center;
+    opacity: 0.8;
+}
+.uso-item::before { transform: translate(-50%, -50%) rotate(45deg); }
+.uso-item::after { transform: translate(-50%, -50%) rotate(-45deg); }
+.uso-item img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    position: relative;
+    z-index: 2;
+}
+.uso-item figcaption {
+    margin-top: 1rem;
+    font-family: var(--font-titulo);
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--color-blanco);
+    position: relative;
+    z-index: 2;
+}
+#uso-invertir img { filter: invert(1); }
+#uso-estirar img { transform: scale(1.5, 1); }
+#uso-rotar img { transform: rotate(15deg); }
+#uso-color img { filter: hue-rotate(120deg); }
+#uso-sombra img { filter: drop-shadow(2px 2px 2px var(--color-blanco)); }
+#uso-opacidad img { opacity: 0.5; }
+
+
+/* == LÁMINA 6: PALETA DE COLOR (TAMAÑO UNIFORME) == */
+#paleta {
+    background-color: var(--color-negro-fondo); /* Fondo Negro */
+}
+#paleta h3 {
+    color: var(--color-principal); /* Naranja */
+}
+#paleta h1, #paleta p {
+    text-align: center;
+}
+.palette-timeline {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 2rem;
+    width: 100%;
+    margin-top: 3rem;
+}
+.palette-item {
+    flex-basis: 200px; /* Más espacio */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.palette-circle {
+    width: 150px; /* Tamaño uniforme */
+    height: 150px; /* Tamaño uniforme */
+    border-radius: 50%;
+    margin-bottom: 1.5rem;
+    transition: transform 0.3s ease;
+}
+.palette-item:hover .palette-circle {
+    transform: scale(1.1);
+}
+.palette-text {
+    min-height: 120px; 
+    width: 100%;
+}
+.palette-item h4 {
+    font-family: var(--font-titulo);
+    font-size: 1.3rem;
+    color: var(--color-blanco);
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+}
+.palette-item span {
+    font-family: var(--font-texto);
+    font-size: 1rem;
+    color: #777;
+    margin-bottom: 0.75rem;
+}
+.palette-item p {
+    font-family: var(--font-texto);
+    font-size: 0.95rem;
+    color: #aaa;
+    line-height: 1.5;
+    max-width: 100%;
+    opacity: 1;
+    transform: none;
+}
+
+
+/* == LÁMINA 7: TIPOGRAFÍA (AJUSTADA) == */
+#tipografia {
+    background-color: var(--color-fucsia); /* Fondo Fucsia */
+    align-items: center;
+}
+#tipografia h3, #tipografia h1, #tipografia p {
+    color: var(--color-negro);
+}
+.tipografia-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 2rem;
+}
+.tipo-ejemplo {
+    width: 100%;
+    background: rgba(0,0,0,0.1);
+    border-radius: 10px;
+    padding: 2rem;
+}
+.tipo-ejemplo h4 {
+    font-family: var(--font-titulo);
+    font-size: 1.5rem;
+    color: var(--color-negro);
+    font-weight: 900;
+}
+.tipo-ejemplo p {
+    font-size: 1rem;
+    color: #333;
+    text-align: left;
+    max-width: 100%;
+}
+.tipo-ejemplo .abc {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    word-wrap: break-word;
+    line-height: 1.6;
+}
+.tipo-ejemplo .preview-bold {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--color-negro);
+}
+.tipo-ejemplo .preview-medium {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    color: #1a1a1a;
+}
+@media (max-width: 768px) {
+    .tipografia-grid {
+        grid-template-columns: 1fr;
+    }
+    .tipo-ejemplo .abc { 
+        font-size: 1rem; 
+    }
+}
+
+
+/* == LÁMINA 8: VOZ DE MARCA (REDISÑADA) == */
+#voz {
+    background-color: var(--color-principal); /* Fondo Naranja */
+}
+#voz h3, #voz h1, #voz p {
+    color: var(--color-negro);
+}
+.voz-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    width: 100%;
+    margin-top: 2rem;
+}
+.voz-columna {
+    background-color: rgba(0,0,0,0.1);
+    border-radius: 10px;
+    padding: 2rem;
+}
+.voz-columna h4 {
+    font-family: var(--font-titulo);
+    font-size: 2.5rem; /* Título más grande */
+    text-transform: uppercase;
+    font-weight: 900;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+.voz-columna h4 .fa-solid {
+    margin-right: 1rem;
+    font-size: 2.2rem;
+    color: var(--color-negro); /* Color de icono corregido */
+}
+#voz-si h4 {
+    color: var(--color-negro);
+    border-bottom: 4px solid var(--color-negro);
+}
+#voz-no h4 {
+    color: var(--color-negro);
+    border-bottom: 4px solid var(--color-negro);
+}
+/* Icono "NO" ahora también es negro */
+#voz-no h4 .fa-thumbs-down {
+    color: var(--color-negro); 
+}
+
+.voz-columna p {
+    font-family: var(--font-texto);
+    font-size: 1.1rem;
+    color: #333;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    text-align: left;
+    max-width: 100%;
+}
+.voz-columna p:last-child {
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+.voz-columna p strong {
+    font-family: var(--font-titulo);
+    color: var(--color-negro);
+    font-weight: 900;
+}
+@media (max-width: 768px) {
+    .voz-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* == LÁMINA 9: APLICACIONES (ACTUALIZADA) == */
+#aplicaciones {
+    background-color: var(--color-fucsia); /* Fondo Fucsia */
+}
+#aplicaciones h3, #aplicaciones h1, #aplicaciones p {
+    color: var(--color-negro);
+}
+.galeria-aplicaciones {
+    display: grid;
+    /* 2x2 Grid en desktop */
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    width: 100%;
+    max-width: 1000px; /* Centra el grid */
+    margin-top: 3rem;
+}
+.galeria-aplicaciones figure {
+    text-align: left;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    overflow: hidden;
+}
+.galeria-aplicaciones img {
+    width: 100%;
+    height: auto;
+    /* Estilos para imagen cuadrada completa */
+    aspect-ratio: 1 / 1;
+    object-fit: contain; /* Muestra la imagen completa */
+    background-color: #fff; /* Fondo para el 'contain' */
+    
+    border-bottom: 2px solid #eee;
+    transition: transform 0.3s ease;
+    cursor: zoom-in; /* Añadido cursor */
+}
+.galeria-aplicaciones figure:hover img {
+    transform: scale(1.05);
+}
+.galeria-aplicaciones figcaption,
+.galeria-aplicaciones p {
+    padding: 0 1.5rem;
+    color: var(--color-negro);
+    text-align: left;
+}
+.galeria-aplicaciones figcaption {
+    margin-top: 1rem;
+    font-family: var(--font-titulo);
+    font-weight: 700;
+    text-transform: uppercase;
+}
+.galeria-aplicaciones p {
+    font-family: var(--font-texto);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    opacity: 1;
+    transform: none;
+    color: #555;
+}
+/* Media query para hacer 1 columna en móvil */
+@media (max-width: 768px) {
+    .galeria-aplicaciones {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* == LÁMINA 10: CIERRE == */
+#cierre {
+    background-color: var(--color-principal); /* Fondo Naranja */
+    text-align: center;
+}
+.logo-cierre {
+    width: 200px;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.6s ease 0.2s, transform 0.6s ease 0.2s;
+}
+#cierre.visible .logo-cierre {
+    opacity: 1;
+    transform: scale(1);
+}
+#cierre h2 {
+    font-family: var(--font-titulo);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    color: var(--color-negro);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 2rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease 0.6s, transform 0.5s ease 0.6s;
+}
+#cierre.visible h2 {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* --- 6. LIGHTBOX/MODAL --- */
+.lightbox-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    cursor: zoom-out;
+}
+.lightbox-overlay.visible {
+    display: flex;
+}
+.lightbox-imagen {
+    max-width: 80%;
+    max-height: 80%;
+    border-radius: 10px;
+}
+.lightbox-cerrar {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    font-size: 3rem;
+    color: var(--color-blanco);
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+}
